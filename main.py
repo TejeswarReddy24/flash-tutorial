@@ -35,16 +35,8 @@ async def post_user_details(request: Request, username: str = Form(...), email: 
 async def api():
     data = []
     try:
-        with open("user_data.txt", "r") as f:
-            for line in f:
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    user = json.loads(line)
-                    data.append(user)
-                except json.JSONDecodeError:
-                    continue
+        with open("user_data.json", "r") as f:
+            data = json.load(f)
     except FileNotFoundError:
         pass
     return JSONResponse(content=data)
